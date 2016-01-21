@@ -1,15 +1,13 @@
 <?php
 /**
  *
- * Data store end-point for NIH Toolbox iPad application
+ * Data store end-point for NIH Toolbox iPad application.
  *
  * This end-point responds to two requests, a
- * 'test' and a 'store' request. On 'test' the end-point will
+ * 'test' and a 'store' request. On receiving 'action=test' the end-point will
  * respond with a short JSON message:
- *  { "error": 0, "message": "ok" }
- * on send it expects one or more files with the following
- * POST arguments: action=store
- * .
+ *   { "error": 0, "message": "ok" }
+ * on 'action=send' the endpoint also expects one or more files (upload).
  *
  * Usage:
  *
@@ -21,16 +19,36 @@
  *   Result: asks for password for the given user, responds with  { "message": "ok" }
  *
  * Store files:
- *   curl --user <user name> -F "site=A" -F "action=store" https://abcd-report.ucsd.edu/applications/ipad-app/d/sA/r.php
+ *   curl --user <user name> -F "action=store" https://abcd-report.ucsd.edu/applications/ipad-app/d/sA/r.php
  *   Result: Error json message: {"message":"Error: no files attached to upload"}
  *
  *   echo "1,2,3,4" > test.csv
- *   curl --user <user name> -F "site=A" -F "action=store" -F "upload=@test.csv" https://abcd-report.ucsd.edu/applications/ipad-app/d/sA/r.php
- *   Result: A single file is stored
+ *   curl --user <user name> -F "action=store" -F "upload=@test.csv" https://abcd-report.ucsd.edu/applications/ipad-app/d/sA/r.php
+ *   Result: A single file is stored, json object with error=0 returned
  *  
  *   echo "1,2,3,4,5" > test2.csv
- *   curl --user <user name> -F "site=A" -F "action=store" -F "upload[]=@test.csv" -F "upload[]=@test2.csv" https://abcd-report.ucsd.edu/applications/ipad-app/d/sA/r.php
- *   Result: Two files are stored on the server
+ *   curl --user <user name> -F "action=store" -F "upload[]=@test.csv" -F "upload[]=@test2.csv" https://abcd-report.ucsd.edu/applications/ipad-app/d/sA/r.php
+ *   Result: Two files are stored on the server, json object with error=0 returned
+ *
+ *
+ * Exmple Setup:
+ *   Copy this script into a directory such as /var/www/html accessible on the web-server. Create a separate
+ *   directory for each site /var/www/html/d/sA and add a link there pointing to the php file.
+ *   In order to secure the connection enable https and install a valid certificate (let's encrypt).
+ *   Add the following setting to the apache configuration file for each site:
+ *    		<Directory /var/www/html/d/sA>
+ *		  AuthType Basic
+ *		  AuthName intranet
+ *		  AuthUserFile /var/www/passwords
+ *		  AuthGroupFile /var/www/groups
+ *		  Require group siteA
+ *		  Order allow,deny
+ *		  Satisfy any
+ *		</Directory>
+ *   Use 'htpasswd' to create a password file entry for each user. Add a group
+ *   file and add users to the group for specific sites. Using this type of
+ *   setup each user has only access to his/her site's sub-directory and data
+ *   transfer uses a secure https connection.
  *
  */
 
