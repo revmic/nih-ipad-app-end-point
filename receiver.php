@@ -31,11 +31,12 @@
  *   Result: Two files are stored on the server, json object with error=0 returned
  *
  *
- * Exmple Setup:
+ * Example Setup:
  *   Copy this script into a directory such as /var/www/html accessible on the web-server. Create a separate
  *   directory for each site /var/www/html/d/sA and add a link there pointing to the php file.
- *   In order to secure the connection enable https and install a valid certificate (let's encrypt).
- *   Add the following setting to the apache configuration file for each site:
+ *   In order to secure the connection enable https and install a valid certificate (create one
+ *   using let's encrypt).
+ *   Add the following setting to the apache configuration file for each site (adjust site name):
  *    		<Directory /var/www/html/d/sA>
  *		  AuthType Basic
  *		  AuthName intranet
