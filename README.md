@@ -96,7 +96,7 @@ Result: A single file is stored, json object with error=0 returned
 
 ``` 
 echo "1,2,3,4,5" > test2.csv
-curl --user <user name> -F "action=store" -F "upload[]=@test.csv" -F "upload[]=@test2.csv" https://abcd-report.ucsd.edu/applications/ipad-app/d/sA/r.php
+curl --user <user name> -F "action=store" -F "upload[]=@test.csv" -F "upload[]=@test2.csv" https://<your server>/d/sA/r.php
 ```
 Result: Two files are stored on the server, json object with error=0 returned
 
