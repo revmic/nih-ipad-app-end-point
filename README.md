@@ -101,3 +101,6 @@ curl --user <user name> -F "action=store" -F "upload[]=@test.csv" -F "upload[]=@
 Result: Two files are stored on the server, json object with error=0 returned
 
 
+### Funding Message
+
+This software was created with support by the National Institute On Drug Abuse of the National Institutes of Health under Award Number U24DA041123. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
