@@ -54,7 +54,7 @@
  */
 
 if (!isset($_SERVER['PHP_AUTH_USER'])) {
-   echo (json_encode( array( "message" => "Error: no user logged in" ), JSON_PRETTY_PRINT ) );
+   echo (json_encode( array( "message" => "Error: no user logged in" ), 128 ) );
    return;
 }
 
@@ -78,11 +78,11 @@ if (strlen($party) > 0) {
 }
 
 function repError( $msg ) {
-   echo (json_encode( array( "error" => 1, "message" => $msg ), JSON_PRETTY_PRINT ) );
+   echo (json_encode( array( "error" => 1, "message" => $msg ), 128 ) );
    return;
 }
 function repOk( $msg ) {
-   echo (json_encode( array( "error" => 0, "message" => $msg ), JSON_PRETTY_PRINT ) );
+   echo (json_encode( array( "error" => 0, "message" => $msg ), 128 ) );
    return;
 }
 
@@ -90,7 +90,7 @@ if ($action == 'test') {
    repOk("ok");
 } elseif ($action == 'store') {
    if ($_FILES['upload']) {
-     $uploads_dir = '/var/www/html/applications/ipad-app/d/'.$site;
+     $uploads_dir = '/var/www_nih_app_endpoint/html/projects/'.$site;
      if (!is_dir($uploads_dir)) {
         if (!mkdir($uploads_dir, 0777, true)) {
 	   repError( "Error: Failed to create site directory for storage" );
